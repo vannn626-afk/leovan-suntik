@@ -54,7 +54,12 @@ async function checkVideoIdRemote(link) {
         form.append('link', link);
         const res = await fetch(API_URL, {
             method: 'POST',
-            headers: { 'content-type': 'application/x-www-form-urlencoded; charset=UTF-8', 'origin': BASE_URL, 'referer': `${BASE_URL}/free-services`, 'user-agent': DEFAULT_UA },
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'origin': BASE_URL,
+                'referer': `${BASE_URL}/free-services`,
+                'user-agent': DEFAULT_UA
+            },
             body: form.toString()
         });
         const json = await res.json();
@@ -95,7 +100,12 @@ module.exports = async (req, res) => {
 
         const response = await fetch(`${API_URL}?action=order`, {
             method: 'POST',
-            headers: { 'content-type': 'application/x-www-form-urlencoded; charset=UTF-8', 'origin': BASE_URL, 'referer': `${BASE_URL}/free-services`, 'user-agent': DEFAULT_UA },
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'origin': BASE_URL,
+                'referer': `${BASE_URL}/free-services`,
+                'user-agent': DEFAULT_UA
+            },
             body: form.toString()
         });
 
