@@ -3,313 +3,348 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEOVANflashh - Liquid Glass</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>LEOVANflashh — Premium Auto Order</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.7);
-            --accent: #ff4fa3;
-            --accent-cyan: #00f2fe;
-            --bg-dark: #0f0c29;
+            --bg-base: #09090b;
+            --bg-surface: #121214;
+            --bg-surface-hover: #18181b;
+            --border-subtle: #27272a;
+            --text-primary: #ededef;
+            --text-secondary: #a1a1aa;
+            --accent: #6366f1; /* Indigo elegan */
+            --accent-hover: #4f46e5;
+            --success: #10b981;
+            --error: #ef4444;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            background-attachment: fixed;
+            background-color: var(--bg-base);
             color: var(--text-primary);
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
+            /* Efek grid halus di background */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: center center;
         }
 
-        /* --- NAVBAR LIQUID GLASS --- */
+        /* --- NAVBAR PREMIUM --- */
         .navbar {
             position: fixed;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 30px);
-            max-width: 500px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 12px 20px;
+            top: 0; left: 0; right: 0;
+            height: 70px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            z-index: 1000;
-            box-shadow: var(--glass-shadow);
-            transition: all 0.3s ease;
-        }
-
-        .navbar:hover {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 10px 40px 0 rgba(31, 38, 135, 0.5);
+            justify-content: space-between;
+            padding: 0 30px;
+            background: rgba(9, 9, 11, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-subtle);
+            z-index: 100;
         }
 
         .nav-brand {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 18px;
-            letter-spacing: 1px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-family: 'Manrope', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-brand .dot {
+            width: 8px; height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
         }
 
         .nav-links {
             display: flex;
-            gap: 15px;
+            gap: 25px;
         }
 
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
             font-size: 14px;
-            font-weight: 600;
-            transition: color 0.2s;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            position: relative;
         }
 
         .nav-links a:hover {
             color: var(--text-primary);
         }
 
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px; left: 0;
+            width: 0%; height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
         /* --- MAIN CONTAINER --- */
-        .main-container {
+        .main-wrapper {
             flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 100px 20px 40px 20px; /* Spasi buat navbar */
-        }
-
-        .glass-card {
-            width: 100%;
-            max-width: 450px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            padding: 35px 30px;
-            box-shadow: var(--glass-shadow);
+            padding: 100px 20px 40px;
             position: relative;
-            overflow: hidden;
         }
 
-        /* Efek glow di pojok */
-        .glass-card::before {
+        /* Glow effect di belakang card */
+        .main-wrapper::before {
             content: '';
             position: absolute;
-            top: -50px; right: -50px;
-            width: 150px; height: 150px;
+            width: 300px; height: 300px;
             background: var(--accent);
-            filter: blur(80px);
+            filter: blur(120px);
+            opacity: 0.15;
             border-radius: 50%;
-            opacity: 0.5;
-            z-index: -1;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
         }
 
-        .header { text-align: center; margin-bottom: 30px; }
+        /* --- CARD ELEGANT --- */
+        .premium-card {
+            width: 100%;
+            max-width: 440px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+            /* Animasi masuk */
+            animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes slideUpFade {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header { margin-bottom: 30px; text-align: left; }
 
         .header h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 36px;
-            font-weight: 700;
-            letter-spacing: -1px;
-            background: linear-gradient(90deg, #fff, #a1a1aa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 5px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
         }
 
         .header p {
             font-size: 14px;
             color: var(--text-secondary);
-            font-weight: 500;
+            line-height: 1.5;
         }
 
-        .form-group { margin-bottom: 22px; }
+        .form-group { margin-bottom: 24px; position: relative; }
 
         label {
             display: block;
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--accent-cyan);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
             margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+
+        .form-group:focus-within label {
+            color: var(--accent);
         }
 
         input, select {
             width: 100%;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            padding: 16px;
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 14px 16px;
             color: var(--text-primary);
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-size: 15px;
             outline: none;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
             appearance: none;
         }
 
-        /* Custom Select Arrow */
+        /* Custom Select Arrow (Minimalis) */
         select {
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23a1a1aa%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
             background-repeat: no-repeat;
-            background-position: right 16px top 50%;
-            background-size: 12px auto;
+            background-position: right 14px top 50%;
+            background-size: 16px auto;
+        }
+
+        input:hover, select:hover {
+            border-color: #3f3f46;
         }
 
         input:focus, select:focus {
-            border-color: var(--accent-cyan);
-            background: rgba(0, 0, 0, 0.4);
-            box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.2);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px var(--accent);
+            background: var(--bg-surface-hover);
         }
 
-        select option {
-            background: #24243e;
-            color: #fff;
-        }
+        select option { background: var(--bg-surface); color: var(--text-primary); }
 
+        /* Tombol Elegan */
         button {
             width: 100%;
-            background: linear-gradient(135deg, var(--accent), #ff1a53);
-            color: #fff;
+            background: var(--text-primary);
+            color: var(--bg-base);
             border: none;
-            border-radius: 14px;
-            padding: 18px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 16px;
+            border-radius: 12px;
+            padding: 16px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 15px;
             font-weight: 700;
-            letter-spacing: 1px;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 79, 163, 0.4);
+            transition: all 0.2s ease;
             margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 79, 163, 0.6);
+        button:hover:not(:disabled) {
+            background: #d4d4d8;
+            transform: translateY(-1px);
         }
 
-        button:active {
+        button:active:not(:disabled) {
             transform: translateY(1px);
         }
 
         button:disabled {
-            background: #444;
+            background: var(--border-subtle);
+            color: var(--text-secondary);
             cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
         }
 
+        /* Terminal Box Elegan */
         .result-box {
-            margin-top: 25px;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            padding: 15px;
-            font-family: monospace;
+            margin-top: 24px;
+            background: #000000;
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 16px;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
             font-size: 12px;
-            color: #00ff88;
+            color: var(--success);
             white-space: pre-wrap;
             word-break: break-all;
             min-height: 80px;
             max-height: 200px;
             overflow-y: auto;
             display: none;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+            transition: opacity 0.3s ease;
+            opacity: 0;
         }
 
-        .result-box.active { display: block; }
+        .result-box.active { display: block; opacity: 1; }
 
+        /* Footer */
         .footer {
             text-align: center;
-            margin-top: 25px;
+            margin-top: 30px;
             font-size: 12px;
             color: var(--text-secondary);
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 20px;
         }
 
-        .footer span {
-            color: var(--accent);
-            font-weight: 700;
-        }
-
-        /* Animasi Loading */
+        /* Animasi Spinner Minimalis */
         .spinner {
             display: inline-block;
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(255,255,255,0.3);
+            width: 16px; height: 16px;
+            border: 2px solid rgba(0,0,0,0.2);
             border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 8px;
-            vertical-align: middle;
+            border-top-color: var(--bg-base);
+            animation: spin 0.8s linear infinite;
+            margin-right: 10px;
         }
 
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Responsif */
-        @media (max-width: 480px) {
-            .nav-links { display: none; } /* Sembunyiin link di HP kecil */
-            .glass-card { padding: 25px 20px; }
-            .header h1 { font-size: 28px; }
+        /* Responsive */
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .premium-card { padding: 30px 24px; border-radius: 20px; }
+            .navbar { padding: 0 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR LIQUID GLASS -->
+    <!-- NAVBAR ELEGAN -->
     <nav class="navbar">
-        <div class="nav-brand">LEOVANflashh</div>
+        <div class="nav-brand">
+            <div class="dot"></div>
+            LEOVANflashh
+        </div>
         <div class="nav-links">
-            <a href="#" onclick="alert('Fitur Home belum tersedia')">Home</a>
-            <a href="#" onclick="alert('Fitur Services belum tersedia')">Services</a>
-            <a href="#" onclick="alert('Fitur About belum tersedia')">About</a>
+            <a href="#" onclick="alert('Menu Home')">Home</a>
+            <a href="#" onclick="alert('Menu Services')">Services</a>
+            <a href="#" onclick="alert('Menu Pricing')">Pricing</a>
+            <a href="#" onclick="alert('Menu Docs')">Docs</a>
         </div>
     </nav>
 
-    <!-- MAIN CONTENT -->
-    <div class="main-container">
-        <div class="glass-card">
+    <!-- CONTENT -->
+    <div class="main-wrapper">
+        <div class="premium-card">
             <div class="header">
-                <h1>Auto Order</h1>
-                <p>Sistem order layanan otomatis</p>
+                <h1>Auto Order System</h1>
+                <p>Integrasi API cerdas untuk menaikkan engagement sosial media Anda secara instan.</p>
             </div>
 
             <div class="form-group">
-                <label>Pilih Layanan</label>
+                <label for="serviceId">Pilih Layanan</label>
                 <select id="serviceId">
-                    <option value="">-- Memuat Layanan... --</option>
+                    <option value="">Memuat layanan...</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label>Target Link / Username</label>
-                <input type="text" id="targetLink" placeholder="https://tiktok.com/...">
+                <label for="targetLink">Target Link / Username</label>
+                <input type="text" id="targetLink" placeholder="https://tiktok.com/@username/video/..." autocomplete="off">
             </div>
 
-            <button id="btnSubmit" onclick="kirimOrder()" disabled>EKSEKUSI ORDER</button>
+            <button id="btnSubmit" onclick="kirimOrder()" disabled>
+                Proses Order
+            </button>
 
             <div id="resultBox" class="result-box"></div>
 
             <div class="footer">
-                Powered by <span>LEOVAN</span>
+                © 2024 LEOVAN. All rights reserved.
             </div>
         </div>
     </div>
@@ -319,25 +354,25 @@
             const select = document.getElementById('serviceId');
             const btn = document.getElementById('btnSubmit');
             try {
-                // Panggil API Vercel (relatif)
+                // Pastikan path ini sesuai dengan struktur Vercel lu
                 const res = await fetch('/api/services');
                 const data = await res.json();
                 
                 select.innerHTML = ''; 
-                if (data.status && data.data.length > 0) {
-                    select.innerHTML = '<option value="">-- Pilih Layanan --</option>';
+                if (data.status && data.data && data.data.length > 0) {
+                    select.innerHTML = '<option value="">Pilih layanan yang tersedia</option>';
                     data.data.forEach(svc => {
                         const opt = document.createElement('option');
                         opt.value = svc.serviceId;
-                        opt.textContent = `[${svc.platform}] ${svc.name}`;
+                        opt.textContent = `${svc.platform} — ${svc.name}`;
                         select.appendChild(opt);
                     });
                     btn.disabled = false;
                 } else {
-                    select.innerHTML = '<option value="">Gagal memuat layanan</option>';
+                    select.innerHTML = '<option value="">Layanan sedang tidak tersedia</option>';
                 }
             } catch (e) {
-                select.innerHTML = '<option value="">Error: Gagal konek API</option>';
+                select.innerHTML = '<option value="">Gagal terhubung ke server</option>';
             }
         }
 
@@ -349,27 +384,32 @@
             const btn = document.getElementById('btnSubmit');
             const resBox = document.getElementById('resultBox');
 
-            if (!id || !link) { alert("Pilih layanan dan isi link target dulu, King!"); return; }
+            if (!id || !link) { alert("Pilih layanan dan isi link target terlebih dahulu."); return; }
 
             btn.disabled = true;
-            btn.innerHTML = '<span class="spinner"></span> PROSES...';
+            btn.innerHTML = '<span class="spinner"></span> Memproses...';
             resBox.classList.add('active');
-            resBox.style.color = '#ffd700';
-            resBox.innerText = "[*] Memproses order...";
+            resBox.style.color = 'var(--text-secondary)';
+            resBox.innerText = "Menghubungi server...";
 
             try {
                 const res = await fetch(`/api/order?id=${id}&link=${encodeURIComponent(link)}`);
                 const data = await res.json();
-                resBox.style.color = data.success ? '#00ff88' : '#ff3366';
+                
+                if (data.status) {
+                    resBox.style.color = 'var(--success)';
+                } else {
+                    resBox.style.color = 'var(--error)';
+                }
                 resBox.innerText = JSON.stringify(data, null, 2);
             } catch (e) {
-                resBox.style.color = '#ff3366';
-                resBox.innerText = "[!] ERROR: Gagal terhubung ke API.";
+                resBox.style.color = 'var(--error)';
+                resBox.innerText = "[!] Error: Gagal terhubung ke API.";
             } finally {
                 btn.disabled = false;
-                btn.innerText = "EKSEKUSI ORDER";
+                btn.innerText = "Proses Order";
             }
         }
     </script>
 </body>
-    </html>
+</html>
