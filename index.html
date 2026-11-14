@@ -3,165 +3,373 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEOVANflashh - Pop Art</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <title>LEOVANflashh - Liquid Glass</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-yellow: #FFD700; --pop-red: #FF3366; --pop-blue: #00BFFF; --pop-black: #111111; --pop-white: #FFFFFF; }
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --accent: #ff4fa3;
+            --accent-cyan: #00f2fe;
+            --bg-dark: #0f0c29;
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-            background-color: var(--bg-yellow);
-            background-image: radial-gradient(var(--pop-black) 1.5px, transparent 1.5px);
-            background-size: 20px 20px;
-            color: var(--pop-black);
-            font-family: 'Comic Neue', cursive;
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; padding: 20px;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
         }
-        .container {
-            width: 100%; max-width: 450px; background: var(--pop-white);
-            border: 5px solid var(--pop-black); box-shadow: 12px 12px 0 var(--pop-black);
-            padding: 30px; position: relative; transform: rotate(-1deg);
+
+        /* --- NAVBAR LIQUID GLASS --- */
+        .navbar {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 30px);
+            max-width: 500px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: var(--glass-shadow);
+            transition: all 0.3s ease;
         }
-        .container::before {
-            content: 'LEOVAN EXCLUSIVE'; position: absolute; top: -15px; left: 50%;
-            transform: translateX(-50%) rotate(3deg); background: var(--pop-red);
-            color: white; font-family: 'Bangers', cursive; padding: 5px 15px;
-            border: 3px solid var(--pop-black); letter-spacing: 2px; font-size: 14px;
-            box-shadow: 3px 3px 0 var(--pop-black);
+
+        .navbar:hover {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 40px 0 rgba(31, 38, 135, 0.5);
         }
-        .header { text-align: center; margin-bottom: 25px; margin-top: 10px; }
+
+        .nav-brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 100px 20px 40px 20px; /* Spasi buat navbar */
+        }
+
+        .glass-card {
+            width: 100%;
+            max-width: 450px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 35px 30px;
+            box-shadow: var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efek glow di pojok */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: -50px; right: -50px;
+            width: 150px; height: 150px;
+            background: var(--accent);
+            filter: blur(80px);
+            border-radius: 50%;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .header { text-align: center; margin-bottom: 30px; }
+
         .header h1 {
-            font-family: 'Bangers', cursive; font-size: 52px; color: var(--pop-red);
-            -webkit-text-stroke: 2px var(--pop-black); text-shadow: 4px 4px 0 var(--pop-black);
-            letter-spacing: 2px; margin-bottom: -5px; line-height: 1;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            background: linear-gradient(90deg, #fff, #a1a1aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
         }
+
         .header p {
-            font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700;
-            background: var(--pop-blue); color: white; display: inline-block;
-            padding: 4px 12px; border: 3px solid var(--pop-black); transform: rotate(2deg);
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
         }
-        .form-group { margin-bottom: 20px; }
+
+        .form-group { margin-bottom: 22px; }
+
         label {
-            display: block; font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700;
-            margin-bottom: 8px; color: var(--pop-black); background: var(--bg-yellow);
-            display: inline-block; padding: 2px 8px; border: 2px solid var(--pop-black);
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
+
         input, select {
-            width: 100%; background: var(--pop-white); border: 4px solid var(--pop-black);
-            padding: 15px; color: var(--pop-black); font-family: 'Comic Neue', cursive;
-            font-weight: 700; font-size: 16px; outline: none; transition: all 0.1s;
-            box-shadow: 4px 4px 0 var(--pop-black); appearance: none;
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23111111%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-            background-repeat: no-repeat; background-position: right 15px top 50%; background-size: 15px auto;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 16px;
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.2s;
+            appearance: none;
         }
-        input:focus, select:focus { background-color: #FFFDE7; transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--pop-black); }
+
+        /* Custom Select Arrow */
+        select {
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px top 50%;
+            background-size: 12px auto;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.2);
+        }
+
+        select option {
+            background: #24243e;
+            color: #fff;
+        }
+
         button {
-            width: 100%; background: var(--pop-red); color: var(--pop-white);
-            border: 4px solid var(--pop-black); padding: 18px; font-family: 'Bangers', cursive;
-            font-size: 24px; letter-spacing: 2px; cursor: pointer;
-            transition: all 0.1s; box-shadow: 6px 6px 0 var(--pop-black); margin-top: 10px;
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent), #ff1a53);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            padding: 18px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 79, 163, 0.4);
+            margin-top: 10px;
         }
-        button:hover { background: #FF1A53; transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--pop-black); }
-        button:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0 var(--pop-black); }
-        button:disabled { background: #999; cursor: not-allowed; transform: none; box-shadow: 4px 4px 0 var(--pop-black); }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 79, 163, 0.6);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        button:disabled {
+            background: #444;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
         .result-box {
-            margin-top: 25px; background: var(--pop-black); color: #00FF00;
-            border: 4px solid var(--pop-black); padding: 15px; font-family: monospace;
-            font-size: 12px; white-space: pre-wrap; word-break: break-all;
-            min-height: 80px; max-height: 200px; overflow-y: auto; display: none;
-            box-shadow: inset 0 0 10px rgba(0,255,0,0.2);
+            margin-top: 25px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #00ff88;
+            white-space: pre-wrap;
+            word-break: break-all;
+            min-height: 80px;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
         }
+
         .result-box.active { display: block; }
-        .footer { text-align: center; margin-top: 25px; font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700; }
-        .footer span { background: var(--pop-blue); color: white; padding: 2px 6px; border: 2px solid var(--pop-black); }
-        .spinner { display: inline-block; width: 20px; height: 20px; border: 4px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite; margin-right: 8px; vertical-align: middle; }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .footer span {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* Animasi Loading */
+        .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
         @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Responsif */
+        @media (max-width: 480px) {
+            .nav-links { display: none; } /* Sembunyiin link di HP kecil */
+            .glass-card { padding: 25px 20px; }
+            .header h1 { font-size: 28px; }
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <h1>LEOVANflashh</h1>
-        <p>AUTO ORDER SYSTEM!</p>
+    <!-- NAVBAR LIQUID GLASS -->
+    <nav class="navbar">
+        <div class="nav-brand">LEOVANflashh</div>
+        <div class="nav-links">
+            <a href="#" onclick="alert('Fitur Home belum tersedia')">Home</a>
+            <a href="#" onclick="alert('Fitur Services belum tersedia')">Services</a>
+            <a href="#" onclick="alert('Fitur About belum tersedia')">About</a>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-container">
+        <div class="glass-card">
+            <div class="header">
+                <h1>Auto Order</h1>
+                <p>Sistem order layanan otomatis</p>
+            </div>
+
+            <div class="form-group">
+                <label>Pilih Layanan</label>
+                <select id="serviceId">
+                    <option value="">-- Memuat Layanan... --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Target Link / Username</label>
+                <input type="text" id="targetLink" placeholder="https://tiktok.com/...">
+            </div>
+
+            <button id="btnSubmit" onclick="kirimOrder()" disabled>EKSEKUSI ORDER</button>
+
+            <div id="resultBox" class="result-box"></div>
+
+            <div class="footer">
+                Powered by <span>LEOVAN</span>
+            </div>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label>Pilih Layanan</label>
-        <select id="serviceId">
-            <option value="">-- Memuat Layanan... --</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>Target Link / Username</label>
-        <input type="text" id="targetLink" placeholder="https://tiktok.com/...">
-    </div>
-
-    <button id="btnSubmit" onclick="kirimOrder()" disabled>ORDER NOW!</button>
-    <div id="resultBox" class="result-box"></div>
-
-    <div class="footer">
-        Powered by <span>LEOVAN</span>
-    </div>
-</div>
-
-<script>
-    async function loadServices() {
-        const select = document.getElementById('serviceId');
-        const btn = document.getElementById('btnSubmit');
-        try {
-            // Panggil API Vercel (relatif)
-            const res = await fetch('/api/services');
-            const data = await res.json();
-            
-            select.innerHTML = ''; 
-            if (data.status && data.data.length > 0) {
-                select.innerHTML = '<option value="">-- Pilih Layanan --</option>';
-                data.data.forEach(svc => {
-                    const opt = document.createElement('option');
-                    opt.value = svc.serviceId;
-                    opt.textContent = `[${svc.platform}] ${svc.name}`;
-                    select.appendChild(opt);
-                });
-                btn.disabled = false;
-            } else {
-                select.innerHTML = '<option value="">Gagal memuat layanan</option>';
+    <script>
+        async function loadServices() {
+            const select = document.getElementById('serviceId');
+            const btn = document.getElementById('btnSubmit');
+            try {
+                // Panggil API Vercel (relatif)
+                const res = await fetch('/api/services');
+                const data = await res.json();
+                
+                select.innerHTML = ''; 
+                if (data.status && data.data.length > 0) {
+                    select.innerHTML = '<option value="">-- Pilih Layanan --</option>';
+                    data.data.forEach(svc => {
+                        const opt = document.createElement('option');
+                        opt.value = svc.serviceId;
+                        opt.textContent = `[${svc.platform}] ${svc.name}`;
+                        select.appendChild(opt);
+                    });
+                    btn.disabled = false;
+                } else {
+                    select.innerHTML = '<option value="">Gagal memuat layanan</option>';
+                }
+            } catch (e) {
+                select.innerHTML = '<option value="">Error: Gagal konek API</option>';
             }
-        } catch (e) {
-            select.innerHTML = '<option value="">Error: Gagal konek API</option>';
         }
-    }
 
-    window.onload = loadServices;
+        window.onload = loadServices;
 
-    async function kirimOrder() {
-        const id = document.getElementById('serviceId').value;
-        const link = document.getElementById('targetLink').value.trim();
-        const btn = document.getElementById('btnSubmit');
-        const resBox = document.getElementById('resultBox');
+        async function kirimOrder() {
+            const id = document.getElementById('serviceId').value;
+            const link = document.getElementById('targetLink').value.trim();
+            const btn = document.getElementById('btnSubmit');
+            const resBox = document.getElementById('resultBox');
 
-        if (!id || !link) { alert("Pilih layanan dan isi link target dulu!"); return; }
+            if (!id || !link) { alert("Pilih layanan dan isi link target dulu, King!"); return; }
 
-        btn.disabled = true;
-        btn.innerHTML = '<span class="spinner"></span> PROSES...';
-        resBox.classList.add('active');
-        resBox.style.color = '#FFFF00';
-        resBox.innerText = "[*] Memproses order...";
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> PROSES...';
+            resBox.classList.add('active');
+            resBox.style.color = '#ffd700';
+            resBox.innerText = "[*] Memproses order...";
 
-        try {
-            const res = await fetch(`/api/order?id=${id}&link=${encodeURIComponent(link)}`);
-            const data = await res.json();
-            resBox.style.color = data.success ? '#00FF00' : '#FF3366';
-            resBox.innerText = JSON.stringify(data, null, 2);
-        } catch (e) {
-            resBox.style.color = '#FF3366';
-            resBox.innerText = "[!] ERROR: Gagal terhubung ke API Vercel.";
-        } finally {
-            btn.disabled = false;
-            btn.innerText = "ORDER NOW!";
+            try {
+                const res = await fetch(`/api/order?id=${id}&link=${encodeURIComponent(link)}`);
+                const data = await res.json();
+                resBox.style.color = data.success ? '#00ff88' : '#ff3366';
+                resBox.innerText = JSON.stringify(data, null, 2);
+            } catch (e) {
+                resBox.style.color = '#ff3366';
+                resBox.innerText = "[!] ERROR: Gagal terhubung ke API.";
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "EKSEKUSI ORDER";
+            }
         }
-    }
-</script>
+    </script>
 </body>
-  </html>
+    </html>
