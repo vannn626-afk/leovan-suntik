@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEOVANflashh - Pop Art</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg-yellow: #FFD700; --pop-red: #FF3366; --pop-blue: #00BFFF; --pop-black: #111111; --pop-white: #FFFFFF; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-yellow);
+            background-image: radial-gradient(var(--pop-black) 1.5px, transparent 1.5px);
+            background-size: 20px 20px;
+            color: var(--pop-black);
+            font-family: 'Comic Neue', cursive;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; padding: 20px;
+        }
+        .container {
+            width: 100%; max-width: 450px; background: var(--pop-white);
+            border: 5px solid var(--pop-black); box-shadow: 12px 12px 0 var(--pop-black);
+            padding: 30px; position: relative; transform: rotate(-1deg);
+        }
+        .container::before {
+            content: 'LEOVAN EXCLUSIVE'; position: absolute; top: -15px; left: 50%;
+            transform: translateX(-50%) rotate(3deg); background: var(--pop-red);
+            color: white; font-family: 'Bangers', cursive; padding: 5px 15px;
+            border: 3px solid var(--pop-black); letter-spacing: 2px; font-size: 14px;
+            box-shadow: 3px 3px 0 var(--pop-black);
+        }
+        .header { text-align: center; margin-bottom: 25px; margin-top: 10px; }
+        .header h1 {
+            font-family: 'Bangers', cursive; font-size: 52px; color: var(--pop-red);
+            -webkit-text-stroke: 2px var(--pop-black); text-shadow: 4px 4px 0 var(--pop-black);
+            letter-spacing: 2px; margin-bottom: -5px; line-height: 1;
+        }
+        .header p {
+            font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700;
+            background: var(--pop-blue); color: white; display: inline-block;
+            padding: 4px 12px; border: 3px solid var(--pop-black); transform: rotate(2deg);
+        }
+        .form-group { margin-bottom: 20px; }
+        label {
+            display: block; font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700;
+            margin-bottom: 8px; color: var(--pop-black); background: var(--bg-yellow);
+            display: inline-block; padding: 2px 8px; border: 2px solid var(--pop-black);
+        }
+        input, select {
+            width: 100%; background: var(--pop-white); border: 4px solid var(--pop-black);
+            padding: 15px; color: var(--pop-black); font-family: 'Comic Neue', cursive;
+            font-weight: 700; font-size: 16px; outline: none; transition: all 0.1s;
+            box-shadow: 4px 4px 0 var(--pop-black); appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23111111%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat; background-position: right 15px top 50%; background-size: 15px auto;
+        }
+        input:focus, select:focus { background-color: #FFFDE7; transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--pop-black); }
+        button {
+            width: 100%; background: var(--pop-red); color: var(--pop-white);
+            border: 4px solid var(--pop-black); padding: 18px; font-family: 'Bangers', cursive;
+            font-size: 24px; letter-spacing: 2px; cursor: pointer;
+            transition: all 0.1s; box-shadow: 6px 6px 0 var(--pop-black); margin-top: 10px;
+        }
+        button:hover { background: #FF1A53; transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--pop-black); }
+        button:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0 var(--pop-black); }
+        button:disabled { background: #999; cursor: not-allowed; transform: none; box-shadow: 4px 4px 0 var(--pop-black); }
+        .result-box {
+            margin-top: 25px; background: var(--pop-black); color: #00FF00;
+            border: 4px solid var(--pop-black); padding: 15px; font-family: monospace;
+            font-size: 12px; white-space: pre-wrap; word-break: break-all;
+            min-height: 80px; max-height: 200px; overflow-y: auto; display: none;
+            box-shadow: inset 0 0 10px rgba(0,255,0,0.2);
+        }
+        .result-box.active { display: block; }
+        .footer { text-align: center; margin-top: 25px; font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700; }
+        .footer span { background: var(--pop-blue); color: white; padding: 2px 6px; border: 2px solid var(--pop-black); }
+        .spinner { display: inline-block; width: 20px; height: 20px; border: 4px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite; margin-right: 8px; vertical-align: middle; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>LEOVANflashh</h1>
+        <p>AUTO ORDER SYSTEM!</p>
+    </div>
+
+    <div class="form-group">
+        <label>Pilih Layanan</label>
+        <select id="serviceId">
+            <option value="">-- Memuat Layanan... --</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Target Link / Username</label>
+        <input type="text" id="targetLink" placeholder="https://tiktok.com/...">
+    </div>
+
+    <button id="btnSubmit" onclick="kirimOrder()" disabled>ORDER NOW!</button>
+    <div id="resultBox" class="result-box"></div>
+
+    <div class="footer">
+        Powered by <span>LEOVAN</span>
+    </div>
+</div>
+
+<script>
+    async function loadServices() {
+        const select = document.getElementById('serviceId');
+        const btn = document.getElementById('btnSubmit');
+        try {
+            // Panggil API Vercel (relatif)
+            const res = await fetch('/api/services');
+            const data = await res.json();
+            
+            select.innerHTML = ''; 
+            if (data.status && data.data.length > 0) {
+                select.innerHTML = '<option value="">-- Pilih Layanan --</option>';
+                data.data.forEach(svc => {
+                    const opt = document.createElement('option');
+                    opt.value = svc.serviceId;
+                    opt.textContent = `[${svc.platform}] ${svc.name}`;
+                    select.appendChild(opt);
+                });
+                btn.disabled = false;
+            } else {
+                select.innerHTML = '<option value="">Gagal memuat layanan</option>';
+            }
+        } catch (e) {
+            select.innerHTML = '<option value="">Error: Gagal konek API</option>';
+        }
+    }
+
+    window.onload = loadServices;
+
+    async function kirimOrder() {
+        const id = document.getElementById('serviceId').value;
+        const link = document.getElementById('targetLink').value.trim();
+        const btn = document.getElementById('btnSubmit');
+        const resBox = document.getElementById('resultBox');
+
+        if (!id || !link) { alert("Pilih layanan dan isi link target dulu!"); return; }
+
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span> PROSES...';
+        resBox.classList.add('active');
+        resBox.style.color = '#FFFF00';
+        resBox.innerText = "[*] Memproses order...";
+
+        try {
+            const res = await fetch(`/api/order?id=${id}&link=${encodeURIComponent(link)}`);
+            const data = await res.json();
+            resBox.style.color = data.success ? '#00FF00' : '#FF3366';
+            resBox.innerText = JSON.stringify(data, null, 2);
+        } catch (e) {
+            resBox.style.color = '#FF3366';
+            resBox.innerText = "[!] ERROR: Gagal terhubung ke API Vercel.";
+        } finally {
+            btn.disabled = false;
+            btn.innerText = "ORDER NOW!";
+        }
+    }
+</script>
+</body>
+  </html>
