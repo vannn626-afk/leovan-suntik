@@ -1,0 +1,8 @@
+{
+  "name": "leovanflashh",
+  "version": "1.0.0",
+  "description": "LEOVANflashh Auto Order System",
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
