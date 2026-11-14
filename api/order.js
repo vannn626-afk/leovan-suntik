@@ -3,9 +3,11 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 const BASE_URL = 'https://zefame.com';
 const API_URL = 'https://api.zefame.com/api_free.php';
 const TURNSTILE_SITEKEY = '0x4AAAAAACWzOmyoRZoUyJWP';
-const CF_API = 'https://api.izzxd.my.id/api/tools/cf-turnstile';
-const DEFAULT_APIKEY = 'izzxd-j6e91rv'; // API KEY LU
 const DEFAULT_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36';
+
+// --- KONFIGURASI VAMX API ---
+const VAMX_API_KEY = 'vamx_live_999554ae3dff4f621099e9dbdef6aef4';
+const VAMX_ENDPOINT = 'https://vamxapi.my.id/api/v1/tools/captchax';
 
 function getUUID() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -15,15 +17,38 @@ function getUUID() {
     });
 }
 
+// Fungsi Bypass Turnstile pake VamX
 async function solveTurnstile(urlTarget) {
     try {
-        const params = new URLSearchParams({ apikey: DEFAULT_APIKEY, url: urlTarget, sitekey: TURNSTILE_SITEKEY, type: 'min' });
-        const res = await fetch(`${CF_API}?${params.toString()}`, { headers: { 'User-Agent': DEFAULT_UA } });
+        const formData = new URLSearchParams();
+        formData.append('type', 'turnstile');
+        formData.append('sitekey', TURNSTILE_SITEKEY);
+        formData.append('siteurl', urlTarget);
+        formData.append('action', 'login'); // Default action, kadang gak ngaruh
+        formData.append('timeout', '45');
+
+        const res = await fetch(VAMX_ENDPOINT, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'x-api-key': VAMX_API_KEY,
+                'User-Agent': DEFAULT_UA
+            },
+            body: formData.toString()
+        });
+
         if (res.ok) {
             const data = await res.json();
-            if (data?.status && (data?.result?.token || data?.token)) return data.result?.token || data.token;
+            // Kadang responsenya ada di data.result.token, data.token, atau data.data.token
+            if (data && data.status === true) {
+                return data.result?.token || data.token || data.data?.token;
+            } else {
+                console.log("VamX Error:", data);
+            }
         }
-    } catch (_) {}
+    } catch (e) {
+        console.log("VamX Connection Error:", e.message);
+    }
     return '';
 }
 
@@ -86,8 +111,10 @@ module.exports = async (req, res) => {
             if (remoteVid) videoId = remoteVid;
         }
 
+        // Nembak VamX buat dapetin token
         let token = await solveTurnstile(`${BASE_URL}/free-services`);
-        if (!token) throw new Error('Gagal mendapatkan token Turnstile. Cek API Key/Limit.');
+        
+        if (!token) throw new Error('Gagal mendapatkan token Turnstile dari VamX. Cek limit/API Key lu.');
 
         const form = new URLSearchParams();
         form.append('service', sid);
@@ -110,11 +137,11 @@ module.exports = async (req, res) => {
         });
 
         const json = await response.json().catch(() => null);
-        if (!json) throw new Error(`HTTP ${response.status}: Respons invalid`);
-        if (!json.success) throw new Error(json.message || 'Gagal mengirim order');
+        if (!json) throw new Error(`HTTP ${response.status}: Respons invalid dari Zefame`);
+        if (!json.success) throw new Error(json.message || 'Gagal mengirim order ke Zefame');
 
         return res.status(200).json({
-            status: true, message: json.message,
+            status: true, message: json.message || 'Order berhasil dikirim!',
             data: { serviceId: sid, target: link, orderId: json.data?.orderId || null, raw: json.data }
         });
     } catch (error) {
