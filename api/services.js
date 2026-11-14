@@ -7,10 +7,17 @@ const DEFAULT_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 module.exports = async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     try {
-        const resApi = await fetch(`${API_URL}?action=config`, {
-            headers: { 'origin': BASE_URL, 'referer': `${BASE_URL}/free-services`, 'user-agent': DEFAULT_UA }
+        const response = await fetch(`${API_URL}?action=config`, {
+            headers: {
+                'origin': BASE_URL,
+                'referer': `${BASE_URL}/free-services`,
+                'user-agent': DEFAULT_UA
+            }
         });
-        const json = await resApi.json();
+
+        if (!response.ok) throw new Error(`HTTP Error ${response.status}`);
+        
+        const json = await response.json();
         if (!json.success || !json.data) throw new Error(json.message || 'Gagal memuat layanan');
 
         const flatServices = [];
@@ -20,12 +27,12 @@ module.exports = async (req, res) => {
                 flatServices.push({
                     serviceId: s.id,
                     platform: platformData.name || platformKey,
-                    name: s.name,
-                    available: s.available
+                    name: s.name
                 });
             }
         }
-        return res.status(200).json({ status: true, total: flatServices.length, services: flatServices });
+
+        return res.status(200).json({ status: true, data: flatServices });
     } catch (error) {
         return res.status(500).json({ status: false, message: error.message });
     }
